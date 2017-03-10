@@ -3,6 +3,35 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
+      "Amazon.Lambda.Core/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Console": "4.0.0",
+          "System.IO": "4.1.0",
+          "System.Runtime": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Amazon.Lambda.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Amazon.Lambda.Core.dll": {}
+        }
+      },
+      "Amazon.Lambda.Serialization.Json/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Amazon.Lambda.Core": "[1.0.0, 1.1.0)",
+          "Newtonsoft.Json": "9.0.1",
+          "System.Reflection": "4.1.0",
+          "System.Runtime": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Amazon.Lambda.Serialization.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Amazon.Lambda.Serialization.Json.dll": {}
+        }
+      },
       "dotnet-test-xunit/1.0.0-rc2-build10015": {
         "type": "package",
         "dependencies": {
@@ -486,13 +515,37 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/7.0.1": {
+      "Newtonsoft.Json/9.0.1": {
         "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1",
+          "System.Collections": "4.0.11",
+          "System.Diagnostics.Debug": "4.0.11",
+          "System.Dynamic.Runtime": "4.0.11",
+          "System.Globalization": "4.0.11",
+          "System.IO": "4.1.0",
+          "System.Linq": "4.1.0",
+          "System.Linq.Expressions": "4.1.0",
+          "System.ObjectModel": "4.0.12",
+          "System.Reflection": "4.1.0",
+          "System.Reflection.Extensions": "4.0.1",
+          "System.Resources.ResourceManager": "4.0.1",
+          "System.Runtime": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Runtime.Serialization.Primitives": "4.1.1",
+          "System.Text.Encoding": "4.0.11",
+          "System.Text.Encoding.Extensions": "4.0.11",
+          "System.Text.RegularExpressions": "4.1.0",
+          "System.Threading": "4.0.11",
+          "System.Threading.Tasks": "4.0.11",
+          "System.Xml.ReaderWriter": "4.0.11",
+          "System.Xml.XDocument": "4.0.11"
+        },
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
       "NuGet.Common/3.5.0-beta-final": {
@@ -2683,10 +2736,57 @@
         "runtime": {
           "lib/dotnet/xunit.runner.utility.dotnet.dll": {}
         }
+      },
+      "MessageHandler/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "Amazon.Lambda.Core": "1.0.0",
+          "Amazon.Lambda.Serialization.Json": "1.0.0",
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        }
       }
     }
   },
   "libraries": {
+    "Amazon.Lambda.Core/1.0.0": {
+      "sha512": "+pBYGHaOaDAhu2j8BA5MhKLwxZM7lgmTSroGyCzEqWMBx+uc+QtpED2ShCAkKjKeedXH+LvJpQAUkEtW7rfcgQ==",
+      "type": "package",
+      "path": "Amazon.Lambda.Core/1.0.0",
+      "files": [
+        "Amazon.Lambda.Core.1.0.0.nupkg.sha512",
+        "Amazon.Lambda.Core.nuspec",
+        "lib/netstandard1.3/Amazon.Lambda.Core.dll",
+        "lib/netstandard1.3/Amazon.Lambda.Core.pdb",
+        "lib/netstandard1.3/Amazon.Lambda.Core.xml",
+        "src/Amazon.Lambda.Core/IClientApplication.cs",
+        "src/Amazon.Lambda.Core/IClientContext.cs",
+        "src/Amazon.Lambda.Core/ICognitoIdentity.cs",
+        "src/Amazon.Lambda.Core/ILambdaContext.cs",
+        "src/Amazon.Lambda.Core/ILambdaLogger.cs",
+        "src/Amazon.Lambda.Core/ILambdaSerializer.cs",
+        "src/Amazon.Lambda.Core/LambdaLogger.cs",
+        "src/Amazon.Lambda.Core/LambdaSerializerAttribute.cs",
+        "src/Amazon.Lambda.Core/Properties/AssemblyInfo.cs"
+      ]
+    },
+    "Amazon.Lambda.Serialization.Json/1.0.0": {
+      "sha512": "tPs+L9X3/Gh73CHjwGXNF9/v2yyh4IhyzHqTD7DUgravq6lf5YyjrYVNl9gMGDTY/OWUW088eGC/p6OI6t9gPA==",
+      "type": "package",
+      "path": "Amazon.Lambda.Serialization.Json/1.0.0",
+      "files": [
+        "Amazon.Lambda.Serialization.Json.1.0.0.nupkg.sha512",
+        "Amazon.Lambda.Serialization.Json.nuspec",
+        "lib/netstandard1.3/Amazon.Lambda.Serialization.Json.dll",
+        "lib/netstandard1.3/Amazon.Lambda.Serialization.Json.pdb",
+        "lib/netstandard1.3/Amazon.Lambda.Serialization.Json.xml",
+        "src/Amazon.Lambda.Serialization.Json/AwsResolver.cs",
+        "src/Amazon.Lambda.Serialization.Json/JsonSerializer.cs",
+        "src/Amazon.Lambda.Serialization.Json/KinesisEventRecordDataConverter.cs",
+        "src/Amazon.Lambda.Serialization.Json/Properties/AssemblyInfo.cs"
+      ]
+    },
     "dotnet-test-xunit/1.0.0-rc2-build10015": {
       "sha512": "2traZWYeJiFzau+1j9HcnSZ3rQLDyIrqKyYKCTbPPmu6lsQAtaOG5q+fuKS9Vaxczmh0IcvZ2hdWEuYmtVb9zw==",
       "type": "package",
@@ -3147,12 +3247,12 @@
         "dotnet_library_license.txt"
       ]
     },
-    "Newtonsoft.Json/7.0.1": {
-      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
+    "Newtonsoft.Json/9.0.1": {
+      "sha512": "U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
       "type": "package",
-      "path": "Newtonsoft.Json/7.0.1",
+      "path": "Newtonsoft.Json/9.0.1",
       "files": [
-        "Newtonsoft.Json.7.0.1.nupkg.sha512",
+        "Newtonsoft.Json.9.0.1.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -3162,10 +3262,12 @@
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
         "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
       ]
     },
@@ -7892,10 +7994,15 @@
         "xunit.runner.utility.2.1.0.nupkg.sha512",
         "xunit.runner.utility.nuspec"
       ]
+    },
+    "MessageHandler/1.0.0": {
+      "type": "project",
+      "path": "../../src/MessageHandler/project.json"
     }
   },
   "projectFileDependencyGroups": {
     "": [
+      "MessageHandler",
       "System.Runtime.Serialization.Primitives >= 4.3.0",
       "dotnet-test-xunit >= 1.0.0-rc2-192208-24",
       "xunit >= 2.1.0"
