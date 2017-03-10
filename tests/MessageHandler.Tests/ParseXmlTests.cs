@@ -2,6 +2,8 @@ using System;
 using Xunit;
 using System.Xml.Linq;
 using System.IO;
+using NSubstitute;
+using Amazon.Lambda.Core;
 
 namespace MessageHandler.Tests
 {
@@ -14,7 +16,7 @@ namespace MessageHandler.Tests
 
             var filePath = Path.Combine( "TestData", "aDex.xml");
 
-            Assert.Equal( "Pink Floyd", parser.Parse( XDocument.Load(filePath).ToString() ).Name );
+            Assert.Equal( "Pink Floyd", parser.Parse( XDocument.Load(filePath).ToString()).Name );
         }
     }
 }
