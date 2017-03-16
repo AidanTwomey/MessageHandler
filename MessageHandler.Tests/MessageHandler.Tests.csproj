@@ -4,6 +4,17 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!--<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS0168;CS0219</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Different.AssemblyName</AssemblyName>    
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);TEST;OTHERCONDITION</DefineConstants>-->
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
@@ -28,7 +39,7 @@
 
 
   <ItemGroup>
-    <Content Include="TestData\*" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="TestData\*" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

@@ -25,16 +25,16 @@ namespace MessageHandler
         }
 
         [LambdaSerializerAttribute(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
-        public async Task<string> HandleUploadEvent(S3Event evnt, ILambdaContext cont)
+        public async Task<string> HandleUploadEvent(S3Event s3event, ILambdaContext context)
         {
-            var logger = cont.Logger;
-            var s3Event = evnt.Records[0].S3;
+            var logger = context.Logger;
+            var s3Record = s3event.Records[0].S3;
 
-            logger.LogLine( String.Format( "bucket {0}, key {1}", s3Event.Bucket.Name, s3Event.Object.Key) );
+            logger.LogLine( String.Format( "bucket {0}, key {1}", s3Record.Bucket.Name, s3Record.Object.Key) );
 
             var request = new GetObjectRequest(){
-                BucketName = s3Event.Bucket.Name,
-                Key = s3Event.Object.Key,
+                BucketName = s3Record.Bucket.Name,
+                Key = s3Record.Object.Key,
                 ServerSideEncryptionCustomerMethod = ServerSideEncryptionCustomerMethod.None
             };
 

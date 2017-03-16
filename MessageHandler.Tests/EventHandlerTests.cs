@@ -39,7 +39,7 @@ namespace MessageHandlerTests
 
             reader.ReadToEnd().Returns(XDocument.Load(filePath).ToString());
 
-            client.GetObjectAsync( Arg.Any<string>(), Arg.Any<string>() ).Returns( response );
+            client.GetObjectAsync( Arg.Any<GetObjectRequest>() ).Returns( response );
 
             S3Event s3event = new S3Event(){
                 Records = new List<S3EventNotification.S3EventNotificationRecord>(){ 
