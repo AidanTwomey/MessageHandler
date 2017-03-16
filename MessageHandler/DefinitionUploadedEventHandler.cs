@@ -39,21 +39,26 @@ namespace MessageHandler
                 ServerSideEncryptionCustomerMethod = ServerSideEncryptionCustomerMethod.None
             };
 
-            logger.LogLine( "Waiting for response" );
             var response = await s3client.GetObjectAsync(request);
 
+            var message = ParseResponse(response, logger);
+
+            // write this to dynamo db
+
+            return message.Name;
+                        
+        }
+
+        private Message ParseResponse(GetObjectResponse response, ILambdaLogger logger)
+        {
             using (var stream = response.ResponseStream)
             {
                 TextReader tr = createStreamReader(stream);
                 var s3Document = tr.ReadToEnd();
                 logger.LogLine("Handler: Got Data from Key");
                                 
-                var message = new MessageParser().Parse(s3Document);
-
-                // write this to Dynomo DB
-
-                return message.Name;
-            }            
+                return new MessageParser().Parse(s3Document);
+            }
         }
     }
 }
