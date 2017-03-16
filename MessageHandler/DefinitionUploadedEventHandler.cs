@@ -12,6 +12,7 @@ namespace MessageHandler
     {
         private readonly IAmazonS3 s3client;
         private readonly Func<Stream, TextReader> createStreamReader;
+
         public DefinitionUploadedEventHandler()
         {
             this.s3client = new AmazonS3Client();
@@ -38,13 +39,11 @@ namespace MessageHandler
                 ServerSideEncryptionCustomerMethod = ServerSideEncryptionCustomerMethod.None
             };
 
-            try
-            {
-              logger.LogLine( "Waiting for response" );
-              var response = await s3client.GetObjectAsync(request);
+            logger.LogLine( "Waiting for response" );
+            var response = await s3client.GetObjectAsync(request);
 
-              using (var stream = response.ResponseStream)
-              {
+            using (var stream = response.ResponseStream)
+            {
                 TextReader tr = createStreamReader(stream);
                 var s3Document = tr.ReadToEnd();
                 logger.LogLine("Handler: Got Data from Key");
@@ -54,14 +53,7 @@ namespace MessageHandler
                 // write this to Dynomo DB
 
                 return message.Name;
-              }
-            }
-            catch ( Exception ex)
-            {
-                logger.LogLine( ex.ToString() + ex.StackTrace );
-
-                return ex.Message;
-            }
+            }            
         }
     }
 }
