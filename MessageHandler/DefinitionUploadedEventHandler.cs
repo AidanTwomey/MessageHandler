@@ -12,17 +12,20 @@ namespace MessageHandler
     {
         private readonly IAmazonS3 s3client;
         private readonly Func<Stream, TextReader> createStreamReader;
+        private readonly IPersister persister;
 
         public DefinitionUploadedEventHandler()
         {
             this.s3client = new AmazonS3Client();
             this.createStreamReader = s => new StreamReader(s);
+            this.persister = new DynamoNamePersister(new Amazon.DynamoDBv2.AmazonDynamoDBClient());
         }
 
-        public DefinitionUploadedEventHandler(IAmazonS3 s3Client, TextReader streamReader)
+        public DefinitionUploadedEventHandler(IAmazonS3 s3Client, TextReader streamReader, IPersister persister)
         {
             this.s3client = s3Client;
             this.createStreamReader = s => streamReader;
+            this.persister = persister;
         }
 
         [LambdaSerializerAttribute(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -43,9 +46,9 @@ namespace MessageHandler
 
             var message = ParseResponse(response, logger);
 
-            // write this to dynamo db
+            var document = persister.Persist(message, logger);
 
-            return message.Name;
+            return document.ToString();
                         
         }
 

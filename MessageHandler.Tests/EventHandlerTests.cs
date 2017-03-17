@@ -31,6 +31,7 @@ namespace MessageHandlerTests
             ILambdaContext context = Substitute.For<ILambdaContext>();
             Stream responseStream = Substitute.For<Stream>();
             TextReader reader = Substitute.For<TextReader>();
+            IPersister persister = Substitute.For<IPersister>();
 
             GetObjectResponse response = new GetObjectResponse(){ ResponseStream = responseStream};
 
@@ -50,7 +51,7 @@ namespace MessageHandlerTests
               }
             };
 
-            var handler = new DefinitionUploadedEventHandler(client, reader);
+            var handler = new DefinitionUploadedEventHandler(client, reader, persister);
             var messageTask = Task.Run( () => ( handler.HandleUploadEvent( s3event, context)) );
 
             return await messageTask;
