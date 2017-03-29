@@ -32,6 +32,9 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.S3Events" Version="1.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.4.3" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MessageHandler\MessageHandler.csproj" />

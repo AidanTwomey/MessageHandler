@@ -20,7 +20,7 @@ namespace MessageHandlerTests
         public async void ReadsXmlFromBucket()
         {
             string handledMessage = await GetHandledMessage();
-            Message message = new Message(handledMessage);
+            Message message = new Message(handledMessage, "");
 
             Assert.Equal( "Pink Floyd", message.Name);
         }

@@ -5,6 +5,7 @@ using Amazon.Lambda.S3Events;
 using Amazon.S3;
 using System.IO;
 using Amazon.S3.Model;
+using Amazon;
 
 namespace MessageHandler
 {
@@ -48,6 +49,8 @@ namespace MessageHandler
 
             var document = persister.Persist(message, logger);
 
+            NotifyAsync( message.Source );
+
             return document.ToString();
                         
         }
@@ -62,6 +65,13 @@ namespace MessageHandler
                                 
                 return new MessageParser().Parse(s3Document);
             }
+        }
+
+        private async void NotifyAsync(string message)
+        {
+            var client = new Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceClient(RegionEndpoint.EUWest1);
+
+            await client.PublishAsync( "arn:aws:sns:eu-west-1:160534783289:adex_parsed", message);
         }
     }
 }

@@ -16,7 +16,10 @@ namespace MessageHandler.Tests
 
             var filePath = Path.Combine( "TestData", "aDex.xml");
 
-            Assert.Equal( "Pink Floyd", parser.Parse( XDocument.Load(filePath).ToString()).Name );
+            var parsedFile = parser.Parse( XDocument.Load(filePath).ToString());
+
+            Assert.Equal( "Pink Floyd", parsedFile.Name );
+            Assert.Equal( "Another Brick In The Wall (Part 2)", parsedFile.Source );
         }
     }
 }

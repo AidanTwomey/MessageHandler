@@ -14,7 +14,9 @@ namespace MessageHandler
 
             XElement name = message.Descendants("Name").Single();
 
-            return new Message( name.Element("FirstName").Value + " " + name.Element("Surname").Value );
+            return new Message( 
+                name.Element("FirstName").Value + " " + name.Element("Surname").Value,
+                name.Element("SourceFile").Value );
         }
     }
 }
